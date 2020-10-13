@@ -1,5 +1,5 @@
 class NOAAReader:
-    """Class for reading NOAA weather data from the Web."""
+    """Class for reading NOAA weather data from the Web. Currently non-functional."""
 
     def __init__(self, FIPS, token):
         """NOAAReader constructor."""
