@@ -9,3 +9,5 @@ Data fetched from the above, for Crete, NE: Office = OAX, gridX = 47, gridY = 30
 Forecast url should be [https://api.weather.gov/gridpoints/OAX/47,30/forecast](https://api.weather.gov/gridpoints/OAX/47,30/forecast)
 
 Current conditions for closest station (Lincoln airport) [https://api.weather.gov/stations/KLNK/observations/latest](https://api.weather.gov/stations/KLNK/observations/latest)
+
+NewsAPI API key: ae277ae39eb84b0eb01efeae417fe724
