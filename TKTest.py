@@ -1,10 +1,24 @@
-import tkinter as tk
+from tkinter import *
 
+master = Tk(className='Weather')
+
+from PIL import Image, ImageTk
+
+root = Tk()
+im = Image.open('combined.bmp',formats=['BMP'])
+im.load()
+img = ImageTk.PhotoImage(im)
+panel = Canvas(master=root, width = 880, height = 528)
+panel.create_image((0, 0), image = bmp, state='normal', anchor=NW)
+panel.pack()
+
+root.mainloop()
+
+'''
 window = tk.Tk(className='Weather')
-
-window.geometry('800x480')
-
 import datetime
+w = Canvas(master, width=200, height=100)
+w.pack()
 
 time = tk.Label(text = datetime.datetime.now())
 time.place(x = 10, y = 450)
@@ -30,3 +44,4 @@ lblHeadlines.place(x = 10, y = 10)
 print(hlString)
 
 window.mainloop()
+'''
