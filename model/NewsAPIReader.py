@@ -34,7 +34,26 @@ class NewsAPIReader:
         import random
         headlines = []
         for i in range(n):
-            headlines.append(articles.pop(random.randint(0, len(articles) - 1))['title'])
+            # get a random article
+            article = articles.pop(random.randint(0, len(articles) - 1))
+
+            # get headline, remove source 
+            headline = article['title']
+            sourceIdx = headline.rfind('-')
+            if sourceIdx != -1:
+                headline = headline[:sourceIdx - 1]
+
+            # get associated content, remove [+6392 chars] data
+            content = article['content']
+            if content is not None:
+                sourceIdx = content.rfind('…')
+                if sourceIdx != -1:
+                    content = content[:(sourceIdx + 1)]
+            else:
+                content = 'No content available'
+
+            # add tuple to the return list
+            headlines.append((headline, content))
 
         return headlines
 

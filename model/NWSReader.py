@@ -81,7 +81,7 @@ class NWSReader:
         speed /= 1.609
 
         ret = {}
-        ret['temp'] = temp
+        ret['temp'] = str(temp) + '°'
         ret['windDirection'] = self._degreesToCardinal(deg)
         ret['windSpeed'] = speed
         ret['text'] = obsDict['properties']['textDescription']
