@@ -102,8 +102,9 @@ forecast = nwsr.getForecast()
 print(forecast)
 
 # look up wifi address of pi via ifconfig   
-ni.ifaddresses('wlp3s0')
-ipAddress = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
+#ni.ifaddresses('wlp3s0')
+#ni.ifaddresses('BD743578-8982-4E1A-987C-6175649CE971')
+ipAddress = '192.168.7.7'#ni.ifaddresses('eth1')[ni.AF_INET][0]['addr']
 
 # create black layer for composite image
 blackLayer = Image.open('blackLayer.bmp')

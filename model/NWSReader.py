@@ -73,12 +73,14 @@ class NWSReader:
         obsDict = json.loads(self._getCurrentObsString())
 
         temp = obsDict['properties']['temperature']['value']
-        temp = int((temp * 9.0 / 5.0) + 32.0)
+        if temp is not None:
+            temp = int((temp * 9.0 / 5.0) + 32.0)
 
         deg = obsDict['properties']['windDirection']['value']
 
         speed = obsDict['properties']['windSpeed']['value']
-        speed /= 1.609
+        if speed is not None:
+            speed /= 1.609
 
         ret = {}
         ret['temp'] = str(temp) + '°'
