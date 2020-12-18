@@ -100,8 +100,8 @@ while True:
     NEWS_WIDTH = 280
 
     # fonts for display
-    headlineFont = ImageFont.truetype('./times.ttf', 22)
-    newsFont = ImageFont.truetype('./times.ttf', 18)
+    headlineFont = ImageFont.truetype('/home/pi/WNStation/times.ttf', 22)
+    newsFont = ImageFont.truetype('/home/pi/WNStation/times.ttf', 18)
 
     # get three random headlines
     napir = NewsAPIReader.NewsAPIReader('ae277ae39eb84b0eb01efeae417fe724')
@@ -120,7 +120,7 @@ while True:
     ipAddress = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
 
     # create black layer for composite image
-    blackLayer = Image.open('blackLayer.bmp')
+    blackLayer = Image.open('/home/pi/WNStation/blackLayer.bmp')
     blackLayer.load()
     blackLayerDraw = ImageDraw.Draw(blackLayer)
 
@@ -143,7 +143,7 @@ while True:
     blackLayerDraw.text((COL_3_X, BASE_HEADLINE_Y + height + 5), text, font=newsFont)
 
     # create red layer for composite image
-    redLayer = Image.open('redLayer.bmp')
+    redLayer = Image.open('/home/pi/WNStation/redLayer.bmp')
     redLayer.load()
     redLayerDraw = ImageDraw.Draw(redLayer)
 
