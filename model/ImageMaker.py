@@ -25,6 +25,8 @@ class ImageMaker:
         # fonts for text on the image
         self.__headlineFont = ImageFont.truetype('./model/times.ttf', 22)
         self.__newsFont = ImageFont.truetype('./model/times.ttf', 18)
+        self.__bigHeadlineFont = ImageFont.truetype('./model/times.ttf', 24)
+        self.__bigNewsFont = ImageFont.truetype('./model/times.ttf', 20)
 
     def makeBlackImage(self, news, wxConditions, wxForecast):
         """
@@ -53,24 +55,24 @@ class ImageMaker:
 
         # first news item
         (a, b) = news[0]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__headlineFont)
-        blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y), hl, font=self.__headlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__newsFont)
-        blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__newsFont)
+        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
+        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # second news item
         (a, b) = news[1]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__headlineFont)
-        blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y), hl, font=self.__headlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__newsFont)
-        blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__newsFont)
+        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
+        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # third news item
         (a, b) = news[2]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__headlineFont)
-        blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y), hl, font=self.__headlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__newsFont)
-        blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__newsFont)
+        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
+        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # weather forecast
         for i, fc in enumerate(wxForecast):
