@@ -20,7 +20,7 @@ class ImageMaker:
         self.__COL_3_X = 592
         self.__NEWS_WIDTH = 280
         self.__WX_WIDTH = 176
-        self.__BASE_WX_Y = 415
+        self.__BASE_WX_Y = 405
 
         # fonts for text on the image
         self.__headlineFont = ImageFont.truetype('./model/times.ttf', 22)
@@ -152,6 +152,7 @@ class ImageMaker:
         lines = 0
         hl = ''
         hll = ''
+        height = font.getsize(text)[1]
 
         try:
             # place all the words in the headline
