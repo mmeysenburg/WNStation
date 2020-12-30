@@ -61,8 +61,14 @@ class NWSReader:
     def getForecast(self):
         """Get the current forecast as a list of dictionaries."""
         import json
+        import urllib.error
 
-        forecasts = json.loads(self._getForecastString())['properties']['periods']
+        forecasts = []
+
+        try:
+            forecasts = json.loads(self._getForecastString())['properties']['periods']
+        except urllib.error.HTTPError:
+            print('trapped HTTPError')
 
         return forecasts
 
@@ -90,13 +96,12 @@ class NWSReader:
 
         return ret
 
-'''
+
 # standalone test code
-NWSStation = 'KLNK'
-NWSOffice = 'OAX'
-NWSGridX = '47'
-NWSGridY = '30'
-nws = NWSReader(NWSOffice, NWSGridX, NWSGridY, NWSStation)
-print(nws.getCurrentConditions())
-print(nws.getForecast())
-'''
+# NWSStation = 'KLNK'
+# NWSOffice = 'OAX'
+# NWSGridX = '47'
+# NWSGridY = '30'
+# nws = NWSReader(NWSOffice, NWSGridX, NWSGridY, NWSStation)
+# print(nws.getCurrentConditions())
+# print(nws.getForecast())

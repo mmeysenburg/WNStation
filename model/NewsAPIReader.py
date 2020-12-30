@@ -1,5 +1,8 @@
 class NewsAPIReader:
-    """Class for reading NewsAPI headlines from the Web."""
+    """Class for reading NewsAPI headlines from the Web.
+    
+    DEPRECATED BECAUSE FREE TIER NEWSAPI ONLY PERSISTS FOR 1 MONTH.
+    """
 
     def __init__(self, apiKey):
         """Constructor for the NewsAPIReader class.
