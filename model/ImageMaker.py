@@ -25,8 +25,8 @@ class ImageMaker:
         # fonts for text on the image
         self.__headlineFont = ImageFont.truetype('./model/times.ttf', 22)
         self.__newsFont = ImageFont.truetype('./model/times.ttf', 18)
-        self.__bigHeadlineFont = ImageFont.truetype('./model/times.ttf', 24)
-        self.__bigNewsFont = ImageFont.truetype('./model/times.ttf', 20)
+        self.__bigHeadlineFont = ImageFont.truetype('./model/times.ttf', 26)
+        self.__bigNewsFont = ImageFont.truetype('./model/times.ttf', 22)
 
     def makeBlackImage(self, news, wxConditions, wxForecast):
         """
@@ -138,13 +138,16 @@ class ImageMaker:
         redLayerDraw.text((5, 505), ipAddress, font=self.__newsFont)
 
         # day / date
-        redLayerDraw.text((10, 7), dayDate, font=self.__newsFont)
+        offset = (220 - self.__newsFont.getsize(dayDate)[0]) // 2
+        redLayerDraw.text((offset, 7), dayDate, font=self.__newsFont)
 
         # current time
         redLayerDraw.text((790, 505), currTime, font=self.__newsFont)
 
         # current temperature / conditions
-        redLayerDraw.text((670, 5), currentConditions['temp'] + ' ' + currentConditions['text'], 
+        text = currentConditions['temp'] + ' ' + currentConditions['text']
+        offset = (220 - self.__newsFont.getsize(text)[0]) // 2
+        redLayerDraw.text((660 + offset, 5), text, 
             font=self.__newsFont)
 
         # send back the image layer
