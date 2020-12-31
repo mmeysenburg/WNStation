@@ -54,8 +54,8 @@ while True:
         # graphic windows test; create and save images, then exit
         blackImageLayer.save('bl.bmp')
         redImageLayer.save('rl.bmp')
-
         exit()
+        
     elif sys.argv[1].lower() == 'r':
         ePaper.draw(blackImageLayer, redImageLayer)
     else:

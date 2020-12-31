@@ -55,23 +55,23 @@ class ImageMaker:
 
         # first news item
         (a, b) = news[0]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        (hl, height) = self.__formatJustifiedText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
         blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        (text, textHeight) = self.__formatJustifiedText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
         blackLayerDraw.text((self.__COL_1_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # second news item
         (a, b) = news[1]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        (hl, height) = self.__formatJustifiedText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
         blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        (text, textHeight) = self.__formatJustifiedText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
         blackLayerDraw.text((self.__COL_2_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # third news item
         (a, b) = news[2]
-        (hl, height) = self.__formatDisplayText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
+        (hl, height) = self.__formatJustifiedText(a, self.__NEWS_WIDTH, self.__bigHeadlineFont)
         blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y), hl, font=self.__bigHeadlineFont)
-        (text, textHeight) = self.__formatDisplayText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
+        (text, textHeight) = self.__formatJustifiedText(b, self.__NEWS_WIDTH, self.__bigNewsFont)
         blackLayerDraw.text((self.__COL_3_X, self.__BASE_HEADLINE_Y + height + 5), text, font=self.__bigNewsFont)
 
         # weather forecast
@@ -80,13 +80,27 @@ class ImageMaker:
                 fcName = fc['name']
                 fcTemp = str(fc['temperature'])
                 fcFC = fc['shortForecast']
-                (day, dayHeight) = self.__formatDisplayText(fcName, self.__WX_WIDTH, self.__headlineFont)
-                blackLayerDraw.text((self.__WX_WIDTH * i + 5, self.__BASE_WX_Y), day, font=self.__headlineFont)
 
-                (temp, tempHeight) = self.__formatDisplayText(fcTemp, self.__WX_WIDTH, self.__newsFont)
-                blackLayerDraw.text((self.__WX_WIDTH * i + 5, self.__BASE_WX_Y + dayHeight + 5), temp, font=self.__newsFont)
+                (day, offset, dayHeight) = self.__formatCenteredText(fcName,
+                    self.__WX_WIDTH, self.__headlineFont)
+                blackLayerDraw.text((self.__WX_WIDTH * i + offset, self.__BASE_WX_Y),
+                    day, font=self.__headlineFont)
+                # (day, dayHeight) = self.__formatJustifiedText(fcName, self.__WX_WIDTH, self.__headlineFont)
+                # blackLayerDraw.text((self.__WX_WIDTH * i + 5, self.__BASE_WX_Y), day, font=self.__headlineFont)
 
-                (fcText, fcHeight) = self.__formatDisplayText(fcFC, self.__WX_WIDTH, self.__newsFont)
+                (temp, offset, tempHeight) = self.__formatCenteredText(fcTemp,
+                    self.__WX_WIDTH, self.__newsFont)
+                blackLayerDraw.text((self.__WX_WIDTH * i + offset, self.__BASE_WX_Y + dayHeight + 5),
+                    temp, font=self.__newsFont)
+                # (temp, tempHeight) = self.__formatJustifiedText(fcTemp, self.__WX_WIDTH, self.__newsFont)
+                # blackLayerDraw.text((self.__WX_WIDTH * i + 5, self.__BASE_WX_Y + dayHeight + 5), temp, font=self.__newsFont)
+
+                # (fcText, offset, fcHeight) = self.__formatCenteredText(fcFC, 
+                #     self.__WX_WIDTH, self.__newsFont)
+                # blackLayerDraw.text((self.__WX_WIDTH * i + offset, 
+                #     self.__BASE_WX_Y + dayHeight + tempHeight + 10), fcText, 
+                #     font=self.__newsFont)
+                (fcText, fcHeight) = self.__formatJustifiedText(fcFC, self.__WX_WIDTH, self.__newsFont)
                 blackLayerDraw.text((self.__WX_WIDTH * i + 5, self.__BASE_WX_Y + dayHeight + tempHeight + 10), 
                     fcText, font=self.__newsFont)
 
@@ -136,7 +150,52 @@ class ImageMaker:
         # send back the image layer
         return redLayer
 
-    def __formatDisplayText(self, text, maxWidth, font):
+    def __formatCenteredText(self, text, width, font):
+        """
+        Format a string as centered in a given width for the display.
+
+        parameters
+        ----------
+        text : str
+            Text to center
+        width : int
+            Width, in pixels, to center in
+        font : ImageFont
+            Font used to display the text
+
+        returns
+        -------
+            (text, offset, height) tuple: text is the text to be displayed
+            (possibly stretched across multiple lines), offset
+            is # of x-dimension pixels to offset by to center the 
+            text, and height is the height of the chunk of text
+        """
+        returnText = text[:]
+        offset = 0
+
+        # single line or multi-line case?
+        origWidth = font.getsize(text)[0]
+        if origWidth <= width: 
+            # don't split line, just center
+            offset = (width - origWidth) // 2
+        else:
+            # hopefully a too-long line is multiple words
+            splitText = text.split()
+            if len(splitText) > 1:
+                returnText = splitText[0][:]
+                for word in splitText[1:]:
+                    tempText = returnText + ' ' + word
+                    if font.getsize(tempText)[0] <= width:
+                        returnText += ' ' + word
+                    else:
+                        returnText += '\n' + word
+                newWidth = font.getsize(returnText)[0]
+                offset = (width - newWidth) // 2
+
+        height = font.getsize(returnText)[1]
+        return (returnText, offset, height)
+
+    def __formatJustifiedText(self, text, maxWidth, font):
         """Format a string as a pseudo-justified text for the display.
 
         text - text to format
